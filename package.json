@@ -1,0 +1,8 @@
+{
+  "name": "juno-web",
+  "private": true,
+  "scripts": {
+    "dev": "npx @azure/static-web-apps-cli start . --api-location api",
+    "serve": "npx serve ."
+  }
+}
