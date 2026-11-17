@@ -42,9 +42,10 @@
   --text: #FFFFFF;
   --text-2: rgba(255, 255, 255, .62);
   --text-3: rgba(255, 255, 255, .55);
-  --dim: rgba(255, 255, 255, .42);
+  --dim: rgba(255, 255, 255, .52);
   --line: rgba(255, 255, 255, .08);
   --line-2: rgba(255, 255, 255, .14);
+  --control-border: rgba(255, 255, 255, .42);
   --chip: rgba(255, 255, 255, .06);
   --well: rgba(11, 11, 15, .72);
   --solid: #FFFFFF;
@@ -66,9 +67,10 @@
   --text: #1D1D1F;
   --text-2: rgba(29, 29, 31, .74);
   --text-3: rgba(29, 29, 31, .67);
-  --dim: rgba(29, 29, 31, .54);
+  --dim: rgba(29, 29, 31, .62);
   --line: rgba(0, 0, 0, .08);
   --line-2: rgba(0, 0, 0, .14);
+  --control-border: rgba(0, 0, 0, .48);
   --chip: rgba(0, 0, 0, .048);
   --well: rgba(245, 245, 247, .9);
   --solid: #1D1D1F;
@@ -109,8 +111,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mono { font-family: var(--mono); }
 .notice { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 20px; padding: 7px 14px; border-radius: 999px; background: var(--chip); border: 1px solid var(--line-2); font-size: 13px; font-weight: 500; color: var(--text-2); }
 .notice .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ai); }
-.chip.soon { border-style: dashed; opacity: .75; }
-.arch .soon { opacity: .75; }
+.chip.soon { border-style: dashed; }
 .arch .soon .node { stroke-dasharray: 4 4; }
 .label { font: 400 12px/1.4 var(--mono); letter-spacing: .02em; color: var(--link); text-transform: uppercase; }
 .grad { background: var(--ai-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -228,6 +229,7 @@ section { position: relative; }
 .path { display: flex; flex-direction: column; gap: 16px; }
 .path .label.muted { color: var(--text-3); }
 .chips-flow { display: flex; align-items: center; flex-wrap: wrap; row-gap: 8px; }
+.chips .chip { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
 .chip { padding: 8px 14px; border-radius: 999px; font: 13px/1 var(--mono); background: var(--chip); border: 1px solid var(--line-2); color: var(--text-2); white-space: nowrap; }
 .chip.on { background: var(--action); border-color: transparent; color: #fff; }
 .chips-flow .wire { height: 1.5px; background: var(--line-2); width: clamp(16px, 9vw, 150px); }
@@ -299,6 +301,7 @@ section { position: relative; }
    CTA + formulario
    ========================================================= */
 .cta-grid { display: grid; grid-template-columns: 1fr 540px; gap: 80px; align-items: center; }
+.cta-grid > * { min-width: 0; }
 .cta-copy .h2 { font-size: clamp(44px, 5.2vw, 72px); }
 .cta-copy .lead { margin-top: 24px; }
 .form-wrap { position: relative; }
@@ -308,7 +311,7 @@ section { position: relative; }
 .field { display: flex; flex-direction: column; gap: 8px; }
 .field label, .field legend { font-size: 13px; font-weight: 500; color: var(--text-2); padding: 0; }
 .field fieldset { border: 0; margin: 0; padding: 0; }
-.input { width: 100%; min-height: 50px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--chip); color: var(--text); font: inherit; font-size: 16px; transition: border-color .15s ease, box-shadow .15s ease; }
+.input { width: 100%; min-height: 50px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--control-border); background: var(--chip); color: var(--text); font: inherit; font-size: 16px; transition: border-color .15s ease, box-shadow .15s ease; }
 .input::placeholder { color: var(--text-3); }
 .input:focus { outline: none; border-color: var(--link); box-shadow: 0 0 0 3px color-mix(in srgb, var(--link) 25%, transparent); }
 .field.invalid .input { border-color: #FF6961; }
@@ -316,9 +319,10 @@ section { position: relative; }
 [data-theme="light"] .err, [data-theme="light"] .field.invalid .input { color: #B3261E; border-color: #B3261E; }
 [data-theme="light"] .input { color: var(--text); }
 .err:empty { display: none; }
+.required { color: var(--text); font-weight: 600; }
 .seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .seg input { position: absolute; opacity: 0; pointer-events: none; }
-.seg label { display: grid; place-items: center; min-height: 44px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--chip); font-size: 14px; font-weight: 500; color: var(--text-2); cursor: pointer; transition: background-color .15s ease, color .15s ease, transform .1s ease-out; }
+.seg label { display: grid; place-items: center; min-height: 44px; border-radius: 999px; border: 1px solid var(--control-border); background: var(--chip); font-size: 14px; font-weight: 500; color: var(--text-2); cursor: pointer; transition: background-color .15s ease, color .15s ease, transform .1s ease-out; }
 .seg label:active { transform: scale(.97); }
 .seg input:checked + label { background: var(--action); color: #fff; border-color: transparent; }
 .seg input:focus-visible + label { outline: 2px solid var(--link); outline-offset: 2px; }
@@ -460,6 +464,20 @@ section { position: relative; }
   .seg3 { grid-template-columns: 1fr 1fr 1fr; }
   .legal-body { padding: 4px 20px 24px; }
 }
+
+/* --- ajustes de usabilidad (evaluación heurística) --- */
+.console-actions { display: flex; flex-direction: column; gap: 10px; }
+.console-actions .btn[hidden] { display: none; }
+.btn-decline { width: 100%; border-radius: var(--radius-m); }
+.step-btn { all: inherit; cursor: pointer; display: inline; }
+.step-btn:hover { color: var(--text); }
+.step-btn:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 6px; }
+.chips .chip:not(.soon) { border-color: transparent; }
+.confirm-next { font-size: 14px; color: var(--text-3) !important; }
+.confirm-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 4px; }
+.form-errors { padding: 12px 14px; border-radius: 12px; border: 1px solid #FF6961; background: color-mix(in srgb, #FF6961 12%, transparent); font-size: 14px; font-weight: 600; color: #FF6961; }
+[data-theme="light"] .form-errors { border-color: #B3261E; color: #B3261E; }
+.form-errors[hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -534,10 +552,11 @@ section { position: relative; }
       <div class="console glass gborder" id="console" role="region" aria-label="Demostración del agente J.U.N.O.">
         <div class="console-head">
           <span class="who"><span class="dot" aria-hidden="true"></span>J.U.N.O.</span>
-          <span class="console-meta" id="console-meta">TELEGRAM · CLIENTE #48102</span>
+          <span class="console-meta" id="console-meta">SIMULACIÓN · DATOS FICTICIOS</span>
         </div>
         <div class="log" id="log" role="log" aria-live="polite"></div>
-        <button class="btn btn-action" id="action" type="button" hidden>Reiniciar módem a distancia</button>
+        <div class="console-actions"><button class="btn btn-action" id="action" type="button" hidden>Confirmar simulación de reinicio</button>
+        <button class="btn btn-ghost btn-decline" id="decline" type="button" hidden>No, gracias. Prefiero hablar con un asesor</button></div>
         <div class="console-foot">
           <span class="status"><span class="grad" id="status">Escuchando…</span></span>
           <button class="replay" id="replay" type="button" hidden>↻ Ver de nuevo</button>
@@ -548,7 +567,7 @@ section { position: relative; }
         <button class="case" type="button" data-case="1" aria-pressed="false">Internet lento</button>
         <button class="case" type="button" data-case="2" aria-pressed="false">¿Cuánto debo?</button>
       </div>
-      <p class="note stage-note">Simulación con datos de ejemplo.</p>
+      <p class="note stage-note">Simulación con datos ficticios. No consulta cuentas ni controla módems.</p>
     </div>
   </div>
 </section>
@@ -574,10 +593,10 @@ section { position: relative; }
       <div class="progress" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
       <div class="pin-grid">
         <ol class="steps" id="steps">
-          <li class="active" aria-current="step"><span class="label">01</span><h3 class="h3">Recibe</h3><p>Llega el mensaje por Telegram.</p></li>
-          <li><span class="label">02</span><h3 class="h3">Entiende el contexto</h3><p>Identifica al cliente, su módem y su zona en tu OSS/BSS.</p></li>
-          <li><span class="label">03</span><h3 class="h3">Ejecuta en tu red</h3><p>Revisa zona, módem y latencia, y reinicia a distancia por SSH.</p></li>
-          <li><span class="label">04</span><h3 class="h3">Responde y cierra</h3><p>Confirma con el cliente y genera el folio.</p></li>
+          <li class="active" aria-current="step"><span class="label">01</span><h3 class="h3"><button class="step-btn" type="button" data-step="0">Recibe</button></h3><p>Llega el mensaje por Telegram.</p></li>
+          <li><span class="label">02</span><h3 class="h3"><button class="step-btn" type="button" data-step="1">Entiende el contexto</button></h3><p>Identifica al cliente, su módem y su zona en tu OSS/BSS.</p></li>
+          <li><span class="label">03</span><h3 class="h3"><button class="step-btn" type="button" data-step="2">Ejecuta en tu red</button></h3><p>Revisa zona, módem y latencia, y reinicia a distancia por SSH.</p></li>
+          <li><span class="label">04</span><h3 class="h3"><button class="step-btn" type="button" data-step="3">Responde y cierra</button></h3><p>Confirma con el cliente y genera el folio.</p></li>
         </ol>
         <div class="visual">
           <div class="glow" aria-hidden="true"></div>
@@ -734,26 +753,27 @@ section { position: relative; }
       <div class="glow" aria-hidden="true"></div>
       <div class="formcard glass gborder" id="formcard">
         <form class="form" id="form" novalidate>
+          <p class="demo-note" id="demo-note" role="note" hidden>Demostración: los datos se validan solo en esta página. No se envían ni generan una solicitud.</p>
           <div class="grid2">
-            <div class="field"><label for="f-nombre">Nombre</label><input class="input" id="f-nombre" name="nombre" autocomplete="name" placeholder="Ej. Ana Torres" required aria-describedby="e-nombre"><p class="err" id="e-nombre"></p></div>
-            <div class="field"><label for="f-empresa">Empresa (ISP)</label><input class="input" id="f-empresa" name="empresa" autocomplete="organization" placeholder="Ej. Inalámbrica del Sureste" required aria-describedby="e-empresa"><p class="err" id="e-empresa"></p></div>
-            <div class="field"><label for="f-correo">Correo de trabajo</label><input class="input" id="f-correo" name="correo" type="email" autocomplete="email" placeholder="nombre@tuempresa.com" required aria-describedby="e-correo"><p class="err" id="e-correo"></p></div>
-            <div class="field"><label for="f-tel">Teléfono</label><input class="input" id="f-tel" name="telefono" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10 dígitos" required aria-describedby="e-tel"><p class="err" id="e-tel"></p></div>
+            <div class="field"><label for="f-nombre">Nombre <span class="required">(obligatorio)</span></label><input class="input" id="f-nombre" name="nombre" autocomplete="name" placeholder="Ej. Ana Torres" required aria-describedby="e-nombre"><p class="err" id="e-nombre" aria-live="polite"></p></div>
+            <div class="field"><label for="f-empresa">Empresa (ISP) <span class="required">(obligatorio)</span></label><input class="input" id="f-empresa" name="empresa" autocomplete="organization" placeholder="Ej. Inalámbrica del Sureste" required aria-describedby="e-empresa"><p class="err" id="e-empresa" aria-live="polite"></p></div>
+            <div class="field"><label for="f-correo">Correo de trabajo <span class="required">(obligatorio)</span></label><input class="input" id="f-correo" name="correo" type="email" autocomplete="email" placeholder="nombre@tuempresa.com" required aria-describedby="e-correo"><p class="err" id="e-correo" aria-live="polite"></p></div>
+            <div class="field"><label for="f-tel">Teléfono <span class="opt" id="tel-required-label">(opcional)</span></label><input class="input" id="f-tel" name="telefono" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10 dígitos" aria-describedby="h-tel e-tel"><p class="hint" id="h-tel">Solo se requiere si prefieres WhatsApp o una llamada.</p><p class="err" id="e-tel" aria-live="polite"></p></div>
           </div>
           <div class="field">
             <fieldset aria-describedby="e-subs">
-              <legend>Número de suscriptores</legend>
+              <legend>Número de suscriptores <span class="required">(obligatorio)</span></legend>
               <div class="seg" style="margin-top:8px">
-                <input type="radio" name="suscriptores" id="s1" value="<1000"><label for="s1">&lt; 1 mil</label>
+                <input type="radio" name="suscriptores" id="s1" value="<1000" required><label for="s1">&lt; 1 mil</label>
                 <input type="radio" name="suscriptores" id="s2" value="1000-5000"><label for="s2">1–5 mil</label>
                 <input type="radio" name="suscriptores" id="s3" value="5000-20000"><label for="s3">5–20 mil</label>
                 <input type="radio" name="suscriptores" id="s4" value=">20000"><label for="s4">&gt; 20 mil</label>
               </div>
             </fieldset>
-            <p class="err" id="e-subs"></p>
+            <p class="err" id="e-subs" aria-live="polite"></p>
           </div>
           <div class="field">
-            <label for="f-sistema">Sistema que usan</label>
+            <label for="f-sistema">Sistema que usan <span class="required">(obligatorio)</span></label>
             <select class="input select" id="f-sistema" name="sistema" required aria-describedby="e-sistema h-sistema">
               <option value="">Elige una opción</option>
               <option>WispHub</option>
@@ -762,7 +782,7 @@ section { position: relative; }
               <option>Otro</option>
             </select>
             <p class="hint" id="h-sistema">Así sabremos qué integración preparar.</p>
-            <p class="err" id="e-sistema"></p>
+            <p class="err" id="e-sistema" aria-live="polite"></p>
           </div>
           <div class="field">
             <fieldset>
@@ -775,20 +795,21 @@ section { position: relative; }
             </fieldset>
           </div>
           <div class="field"><label for="f-mensaje">Mensaje <span class="opt">(opcional)</span></label><textarea class="input textarea" id="f-mensaje" name="mensaje" rows="3" placeholder="Cuéntanos qué te gustaría resolver"></textarea></div>
-          <p class="demo-note" id="demo-note" hidden>Formulario de demostración: por ahora valida tus datos, pero todavía no los envía.</p>
           <div class="field">
-            <label class="check"><input type="checkbox" id="f-aviso" name="aviso" aria-describedby="e-aviso"> <span>Acepto el <button class="inline-link" type="button" data-legal="privacidad">aviso de privacidad</button></span></label>
-            <p class="err" id="e-aviso"></p>
+          <label class="check"><input type="checkbox" id="f-aviso" name="aviso" required aria-describedby="e-aviso"> <span>Acepto el <button class="inline-link" type="button" data-legal="privacidad">aviso de privacidad</button> <span class="required">(obligatorio)</span></span></label>
+            <p class="err" id="e-aviso" aria-live="polite"></p>
           </div>
+          <div class="form-errors" id="form-errors" role="alert" hidden></div>
           <div class="send-error" id="send-error" role="alert" hidden>No pudimos enviar tu solicitud. <button class="inline-link" type="button" id="retry">Intentar de nuevo</button></div>
-          <button class="btn btn-solid" type="submit" id="submit">Enviar solicitud</button>
+          <button class="btn btn-solid" type="submit" id="submit">Validar datos (demo)</button>
         </form>
-        <div class="confirm" id="confirm" hidden>
+        <div class="confirm" id="confirm" role="status" aria-live="polite" hidden>
           <div class="tick" aria-hidden="true">✓</div>
-          <h3 tabindex="-1" id="confirm-title">Solicitud enviada.</h3>
-          <p id="confirm-text">Te contactamos en menos de 24 h para preparar tu demostración.</p>
-          <span class="chip" id="folio">Folio JUNO-20261111-0001</span>
-          <a class="btn btn-ghost" href="#top" style="margin-top:8px">Volver al inicio</a>
+          <h3 tabindex="-1" id="confirm-title">Revisión de demostración completada.</h3>
+          <p id="confirm-text">Tus datos pasaron las validaciones de esta página. No se enviaron ni se guardaron.</p>
+          <span class="chip" id="folio" hidden></span>
+          <p class="confirm-next">Cuando el formulario esté conectado, el equipo te contactará. Mientras, revisa las preguntas frecuentes.</p>
+          <div class="confirm-actions"><a class="btn btn-ghost" href="#top">Volver al inicio</a><a class="btn btn-ghost" href="#faq">Ver preguntas frecuentes</a></div>
         </div>
       </div>
     </div>
@@ -942,22 +963,33 @@ section { position: relative; }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   /* ---------- Menú móvil (Dialog: entra y sale por arriba) ---------- */
-  var menu = $('#menu'), panel = $('.menu-panel', menu), scrim = $('.menu-scrim', menu), openBtn = $('[data-menu-open]');
+  var menu = $('#menu'), panel = $('.menu-panel', menu), scrim = $('.menu-scrim', menu), openBtn = $('[data-menu-open]'), menuBackground = [];
   function openMenu() {
     menu.hidden = false; openBtn.setAttribute('aria-expanded', 'true');
+    menuBackground = Array.prototype.filter.call(document.body.children, function (node) { return node !== menu; });
+    menuBackground.forEach(function (node) { node.inert = true; });
     if (CAN) { M.animate(scrim, { opacity: [0, 1] }, { duration: 0.2 }); M.animate(panel, { opacity: [0, 1], y: [-16, 0] }, SHEET); }
     var first = $('a', panel); if (first) first.focus();
   }
   function closeMenu() {
     openBtn.setAttribute('aria-expanded', 'false');
-    var done = function () { menu.hidden = true; openBtn.focus(); };
+    var done = function () { menu.hidden = true; menuBackground.forEach(function (node) { node.inert = false; }); menuBackground = []; openBtn.focus(); };
     if (!CAN) return done();
     M.animate(scrim, { opacity: 0 }, { duration: 0.2 });
     M.animate(panel, { opacity: 0, y: -16 }, SHEET).then(done);
   }
   openBtn.addEventListener('click', openMenu);
   $$('[data-menu-close]', menu).forEach(function (el) { el.addEventListener('click', closeMenu); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) closeMenu(); });
+  document.addEventListener('keydown', function (e) {
+    if (menu.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeMenu(); return; }
+    if (e.key !== 'Tab') return;
+    var focusables = $$('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])', panel).filter(function (el) { return el.getClientRects().length; });
+    if (!focusables.length) { e.preventDefault(); panel.focus(); return; }
+    var first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+  });
 
   /* ---------- Revelado general al entrar en pantalla ---------- */
   if (CAN) {
@@ -983,10 +1015,10 @@ section { position: relative; }
   var CASES = [
     { user: 'No tengo internet.', a1: 'Reviso tu módem y tu zona.',
       lines: [['ok', '✓ Zona Centro ......... sin fallas'], ['ok', '✓ Módem ............... en línea'], ['warn', '! Pérdida de paquetes . 38 %'], ['info', '› Esperando confirmación para reiniciar…']],
-      a2: 'Tu zona está bien, pero tu módem no responde bien. ¿Lo reinicio a distancia? Tarda unos segundos.',
-      action: 'Reiniciar módem a distancia',
-      after: [[3, 'info', '› Reinicio remoto enviado'], [2, 'ok', '✓ Pérdida de paquetes . 0 %'], [3, 'ok', '✓ Latencia ............ 18 ms']],
-      done: 'Listo, ya regresó tu conexión. Caso resuelto · Folio JUNO-' + hoy() + '-0042.', status: 'Resuelto en 0:42' },
+      a2: 'En producción, J.U.N.O. pediría autorización antes de intentar el reinicio. Esta demo no se conecta a ningún módem.',
+      action: 'Confirmar simulación de reinicio',
+      after: [[3, 'info', '› Simulación de reinicio completada'], [2, 'ok', '✓ Ejemplo de pérdida ..... 0 %'], [3, 'ok', '✓ Ejemplo de latencia .... 18 ms']],
+      done: 'Fin de la simulación. No se reinició ningún módem ni se creó un folio.', status: 'Simulación completada' },
     { user: 'Mi internet está muy lento.', a1: 'Reviso tu zona.',
       lines: [['warn', '! Zona Centro ......... falla activa'], ['ok', '✓ Módem ............... en línea'], ['info', '› Registrando tu reporte…']],
       a2: 'Hay una falla en tu zona y el equipo técnico ya la está atendiendo. Registré tu reporte con el folio JUNO-' + hoy() + '-0043.',
@@ -996,7 +1028,7 @@ section { position: relative; }
       a2: 'Tu saldo es de $499 y tu fecha de corte es el 15 de noviembre.',
       status: 'Saldo consultado' }
   ];
-  var log = $('#log'), action = $('#action'), status = $('#status'), replay = $('#replay');
+  var log = $('#log'), action = $('#action'), decline = $('#decline'), status = $('#status'), replay = $('#replay');
   var consoleEl = $('#console'), caseBtns = $$('[data-case]'), active = 0;
   var visible = true, runId = 0, waiting = null;
 
@@ -1051,13 +1083,14 @@ section { position: relative; }
     log.appendChild(tel);
     log.appendChild(el('div', 'msg agent', c.a2));
     if (c.done) log.appendChild(el('div', 'msg agent', c.done));
-    action.hidden = true; status.textContent = c.status; replay.hidden = false;
+    action.hidden = true; decline.hidden = true; status.textContent = c.status; replay.hidden = false;
   }
   async function runConsole(i) {
     var id = ++runId, c = CASES[i];
+    if (waiting) { waiting('cancel'); waiting = null; }
     if (!CAN) return renderStatic(c);
     try {
-      log.innerHTML = ''; action.hidden = true; action.disabled = false; replay.hidden = true;
+      log.innerHTML = ''; action.hidden = true; action.disabled = false; decline.hidden = true; replay.hidden = true;
       status.textContent = 'Escuchando…';
       var u = el('div', 'msg user', c.user); u.hidden = true; log.appendChild(u);
       await wait(350, id); show(u);
@@ -1074,10 +1107,18 @@ section { position: relative; }
       stop = typingDots(); await wait(700, id); stop();
       var a2 = el('div', 'msg agent'); log.appendChild(a2); show(a2); await typeInto(a2, c.a2, id);
       if (c.action) {
-        action.textContent = c.action; await wait(250, id); show(action); status.textContent = 'Esperando confirmación';
-        await Promise.race([new Promise(function (res) { waiting = res; }), wait(4500, id)]);
-        waiting = null; if (id !== runId) return;
-        action.disabled = true; action.textContent = 'Reiniciando módem…'; status.textContent = 'Reiniciando a distancia…';
+        action.textContent = c.action; await wait(250, id); show(action); show(decline); status.textContent = 'Esperando tu respuesta';
+        /* el reinicio solo ocurre si la persona lo confirma: no hay respuesta automática */
+        var choice = await new Promise(function (res) { waiting = res; });
+        waiting = null; if (id !== runId || choice === 'cancel') return;
+        decline.hidden = true;
+        if (choice === 'no') {
+          action.hidden = true;
+          var nd = el('div', 'msg agent'); log.appendChild(nd); show(nd);
+          await typeInto(nd, 'Entendido, no reinicio tu módem. En producción, el caso pasaría al grupo de asesores con el diagnóstico y el folio.', id);
+          status.textContent = 'Reinicio cancelado'; replay.hidden = false; return;
+        }
+        action.disabled = true; action.textContent = 'Simulando reinicio…'; status.textContent = 'Simulación en curso…';
         for (var j = 0; j < c.after.length; j++) { await wait(j === 0 ? 300 : 900, id); var up = c.after[j]; setLine(spans[up[0]], up[1], up[2]); }
         await wait(400, id);
         M.animate(action, { opacity: 0, y: -6 }, SPRING).then(function () { action.hidden = true; action.style.opacity = ''; action.style.transform = ''; });
@@ -1088,7 +1129,8 @@ section { position: relative; }
       replay.hidden = false;
     } catch (e) { if (e !== 'cancel') console.error('consola', e); }
   }
-  action.addEventListener('click', function () { if (waiting) waiting(); });
+  action.addEventListener('click', function () { if (waiting) waiting('si'); });
+  decline.addEventListener('click', function () { if (waiting) waiting('no'); });
   replay.addEventListener('click', function () { runConsole(active); });
   caseBtns.forEach(function (b) { b.addEventListener('click', function () { var i = +b.getAttribute('data-case'); selectCase(i); runConsole(i); }); });
   if (CAN) M.inView(consoleEl, function () { runConsole(active); }, { amount: 0.15 });
@@ -1135,6 +1177,15 @@ section { position: relative; }
     /* sin movimiento: los 4 pasos visibles como lista */
     panels.forEach(function (p) { p.hidden = false; });
   }
+  /* los pasos también se eligen con clic o teclado, sin depender del scroll */
+  $$('.step-btn').forEach(function (b) { b.addEventListener('click', function () {
+    var n = +b.getAttribute('data-step'), sec = $('#como');
+    if (CAN && window.matchMedia('(min-width: 900px)').matches) {
+      var top = sec.getBoundingClientRect().top + window.scrollY, range = sec.offsetHeight - window.innerHeight;
+      window.scrollTo({ top: top + range * (n + 0.5) / 4, behavior: 'smooth' });
+    }
+    setStep(n);
+  }); });
 
   /* =====================================================================
      5) TÍTULO DE CAPACIDADES — Scroll word reveal
@@ -1189,11 +1240,12 @@ section { position: relative; }
      ===================================================================== */
   var form = $('#form'), card = $('#formcard'), confirmBox = $('#confirm'), submit = $('#submit'), sendErr = $('#send-error');
   if (!ENDPOINT) $('#demo-note').hidden = false;
+  submit.textContent = ENDPOINT ? 'Enviar solicitud' : 'Validar datos (demo)';
   var rules = {
     'f-nombre': function (v) { return v.trim() ? '' : 'Escribe tu nombre.'; },
     'f-empresa': function (v) { return v.trim() ? '' : 'Escribe el nombre de tu empresa.'; },
     'f-correo': function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Revisa el correo: falta el @ o el dominio.'; },
-    'f-tel': function (v) { return /^\d{10}$/.test(v.replace(/\D/g, '')) ? '' : 'Escribe 10 dígitos.'; },
+    'f-tel': function (v) { var required = $('#c2').checked || $('#c3').checked; if (!required && !v.trim()) return ''; return /^\d{10}$/.test(v.replace(/\D/g, '')) ? '' : 'Escribe un teléfono de 10 dígitos.'; },
     'f-sistema': function (v) { return v ? '' : 'Elige el sistema que usan.'; }
   };
   function check(id) {
@@ -1208,6 +1260,13 @@ section { position: relative; }
     input.addEventListener(input.tagName === 'SELECT' ? 'change' : 'blur', function () { if (input.value || input.tagName === 'SELECT') check(id); });
     input.addEventListener('input', function () { if (input.closest('.field').classList.contains('invalid')) check(id); });
   });
+  $$('input[name="contacto"]').forEach(function (radio) { radio.addEventListener('change', function () {
+    var needsPhone = $('#c2').checked || $('#c3').checked, phone = $('#f-tel');
+    phone.required = needsPhone;
+    $('#tel-required-label').textContent = needsPhone ? '(obligatorio)' : '(opcional)';
+    $('#h-tel').textContent = needsPhone ? 'Ingresa 10 dígitos para que podamos contactarte por esta vía.' : 'Solo se requiere si prefieres WhatsApp o una llamada.';
+    if (phone.value || $('#e-tel').textContent) check('f-tel');
+  }); });
   function datos() {
     var o = {}; new FormData(form).forEach(function (v, k) { o[k] = typeof v === 'string' ? v.trim() : v; });
     o.aviso = $('#f-aviso').checked; o.origen = 'landing'; return o;
@@ -1215,11 +1274,18 @@ section { position: relative; }
   function setSending(on) {
     $$('input, select, textarea', form).forEach(function (x) { x.disabled = on; });
     submit.disabled = on;
-    submit.innerHTML = on ? '<span class="spin" aria-hidden="true"></span><span>Enviando…</span>' : 'Enviar solicitud';
+    submit.innerHTML = on ? '<span class="spin" aria-hidden="true"></span><span>Enviando…</span>' : (ENDPOINT ? 'Enviar solicitud' : 'Validar datos (demo)');
   }
   function showConfirm(folio) {
-    $('#folio').textContent = 'Folio ' + folio;
-    if (!ENDPOINT) $('#confirm-text').textContent = 'Datos válidos. Este formulario es de demostración: todavía no envía solicitudes.';
+    $('#folio').hidden = !ENDPOINT;
+    if (ENDPOINT) {
+      $('#confirm-title').textContent = 'Solicitud enviada.';
+      $('#confirm-text').textContent = 'Recibimos tu solicitud. El equipo te contactará para preparar tu demostración.';
+      $('#folio').textContent = 'Folio ' + folio;
+    } else {
+      $('#confirm-title').textContent = 'Revisión de demostración completada.';
+      $('#confirm-text').textContent = 'Tus datos pasaron las validaciones de esta página. No se enviaron ni se guardaron.';
+    }
     var from = card.offsetHeight;
     form.hidden = true; confirmBox.hidden = false;
     var to = card.offsetHeight;
@@ -1233,8 +1299,8 @@ section { position: relative; }
   }
   async function enviar() {
     sendErr.hidden = true;
+    if (!ENDPOINT) return showConfirm('');
     var folio = 'JUNO-' + hoy() + '-' + String(Math.floor(Math.random() * 9000) + 1000);
-    if (!ENDPOINT) return showConfirm(folio);
     setSending(true);
     try {
       var payload = datos(); payload.folio = folio;
@@ -1248,17 +1314,30 @@ section { position: relative; }
     }
   }
   $('#retry').addEventListener('click', enviar);
+  $$('input[name="suscriptores"]').forEach(function (radio) { radio.addEventListener('change', function () {
+    $('#e-subs').textContent = '';
+    form.querySelector('fieldset[aria-describedby="e-subs"]').setAttribute('aria-invalid', 'false');
+  }); });
+  $('#f-aviso').addEventListener('change', function () {
+    $('#e-aviso').textContent = '';
+    $('#f-aviso').setAttribute('aria-invalid', 'false');
+  });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var firstBad = null;
     ['f-nombre', 'f-empresa', 'f-correo', 'f-tel'].forEach(function (id) { if (!check(id) && !firstBad) firstBad = document.getElementById(id); });
     var subs = form.querySelector('input[name="suscriptores"]:checked');
-    $('#e-subs').textContent = subs ? '' : 'Elige un rango de suscriptores.';
+    $('#e-subs').textContent = subs ? '' : 'Elige el rango que mejor se aproxime.';
+    form.querySelector('fieldset[aria-describedby="e-subs"]').setAttribute('aria-invalid', subs ? 'false' : 'true');
     if (!subs && !firstBad) firstBad = $('#s1');
     if (!check('f-sistema') && !firstBad) firstBad = $('#f-sistema');
     var aviso = $('#f-aviso').checked;
     $('#e-aviso').textContent = aviso ? '' : 'Acepta el aviso de privacidad para enviar tu solicitud.';
+    $('#f-aviso').setAttribute('aria-invalid', aviso ? 'false' : 'true');
     if (!aviso && !firstBad) firstBad = $('#f-aviso');
+    var nErr = $$('.field.invalid', form).length + (subs ? 0 : 1) + (aviso ? 0 : 1), box = $('#form-errors');
+    box.textContent = nErr ? (nErr === 1 ? 'Revisa 1 campo marcado en rojo.' : 'Revisa ' + nErr + ' campos marcados en rojo.') : '';
+    box.hidden = !nErr;
     if (firstBad) { firstBad.focus(); return; }
     enviar();
   });
