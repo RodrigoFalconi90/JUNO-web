@@ -4,5 +4,8 @@
   "scripts": {
     "dev": "npx @azure/static-web-apps-cli start . --api-location api",
     "serve": "npx serve ."
+  },
+  "dependencies": {
+    "mongodb": "^7.9.1"
   }
 }
