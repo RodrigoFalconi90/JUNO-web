@@ -999,10 +999,9 @@ section { position: relative; }
   }
 
   /* ---------- Configuración ----------
-     ENDPOINT: URL de la función de Azure que recibe la solicitud (POST JSON).
-     Mientras esté vacío, el formulario valida pero no envía (modo demostración).
+     ENDPOINT: función del mismo proyecto Vercel que guarda la solicitud en MongoDB.
      CONTACT_EMAIL: correo real del equipo; si está vacío se invita a usar el formulario. */
-  var ENDPOINT = '';
+  var ENDPOINT = '/api/registro';
   var CONTACT_EMAIL = '';
   if (CONTACT_EMAIL) {
     $$('[data-contact]').forEach(function (el) { el.innerHTML = 'escríbenos a <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>'; });
