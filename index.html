@@ -1300,9 +1300,9 @@ section { position: relative; }
     sendErr.hidden = true;
     if (!ENDPOINT) return showConfirm('');
     var folio = 'JUNO-' + hoy() + '-' + String(Math.floor(Math.random() * 9000) + 1000);
+    var payload = datos(); payload.folio = folio;
     setSending(true);
     try {
-      var payload = datos(); payload.folio = folio;
       var res = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       setSending(false); showConfirm(folio);
