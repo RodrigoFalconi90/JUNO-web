@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   try {
     await client.connect();
-    const registros = client.db('juno_db').collection('registros');
+    const registros = client.db('JUNO_DB').collection('registros');
 
     if (req.method === 'POST') {
       const { email, whatsapp } = req.body;
